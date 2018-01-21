@@ -24,7 +24,8 @@ const os = require('os');
 
 function insideGitRepository() {
   try {
-    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' });
+    console.log('will detect');
+    execSync('git rev-parse --is-inside-work-tree');
     return true;
   } catch (e) {
     return false;
@@ -42,17 +43,19 @@ function insideMercurialRepository() {
 
 function tryGitInit() {
   try {
-    execSync('git --version', { stdio: 'ignore' });
+    console.log('will check');
+    execSync('git --version');
 
     if (insideGitRepository() || insideMercurialRepository()) {
       return false;
     }
 
-    execSync('git init', { stdio: 'ignore' });
-    execSync('git add -A', { stdio: 'ignore' });
-    execSync('git commit -m "Initial commit from Create React App"', {
-      stdio: 'ignore',
-    });
+    console.log('will init');
+    execSync('git init');
+    console.log('will add');
+    execSync('git add -A');
+    console.log('will commit');
+    execSync('git commit -m "Initial commit from Create React App"');
 
     return true;
   } catch (e) {
